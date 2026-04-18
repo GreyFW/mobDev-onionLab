@@ -1,4 +1,9 @@
 package com.example.navigation
 
-interface AppNavigators {
+interface AuthNavigator {
+    fun navigateToTodo()
+}
+
+interface TodoNavigator {
+    fun navigateToAuth()
 }

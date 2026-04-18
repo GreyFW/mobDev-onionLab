@@ -22,3 +22,6 @@ dependencyResolutionManagement {
 rootProject.name = "To Do 2"
 include(":app")
 include(":core")
+include(":feature-auth")
+include(":core:navigation")
+include(":feature-todo")
