@@ -1,4 +1,4 @@
-package com.example.todo2.domain.models
+package com.example.domain.models
 
 data class User(
     val id: String,

@@ -1,8 +1,8 @@
-package com.example.todo2.data.repositories
+package com.example.data.repositories
 
-import com.example.todo2.domain.models.Task
-import com.example.todo2.domain.repositories.ITodoRepository
-import com.example.todo2.domain.models.Subtask
+import com.example.domain.models.Task
+import com.example.domain.repositories.ITodoRepository
+import com.example.domain.models.Subtask
 import androidx.room.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

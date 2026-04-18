@@ -1,6 +1,6 @@
-package com.example.todo2.domain.usecases.todo
+package com.example.domain.usecases.todo
 
-import com.example.todo2.domain.repositories.ITodoRepository
+import com.example.domain.repositories.ITodoRepository
 
 class DeleteTaskUseCase(private val repository: ITodoRepository) {
     suspend operator fun invoke(id: Int): Result<Unit> {
