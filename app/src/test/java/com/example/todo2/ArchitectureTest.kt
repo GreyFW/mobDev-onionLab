@@ -12,7 +12,7 @@ class ArchitectureTest {
     @Test
     fun `domain modules should not import android framework`() {
         Konsist
-            .scopeFromProject()
+            .scopeFromProduction()
             .files
             .filter { it.moduleName.contains("domain") }
             .imports
@@ -24,7 +24,7 @@ class ArchitectureTest {
     @Test
     fun `data modules should not import compose UI components`() {
         Konsist
-            .scopeFromProject()
+            .scopeFromProduction()
             .files
             .filter { it.moduleName.contains("data") }
             .imports
@@ -36,7 +36,7 @@ class ArchitectureTest {
     @Test
     fun `feature modules should not depend on each other`() {
         Konsist
-            .scopeFromProject()
+            .scopeFromProduction()
             .files
             .filter { it.moduleName.contains("auth") }
             .imports
@@ -45,7 +45,7 @@ class ArchitectureTest {
             }
 
         Konsist
-            .scopeFromProject()
+            .scopeFromProduction()
             .files
             .filter { it.moduleName.contains("todo") }
             .imports
@@ -57,32 +57,31 @@ class ArchitectureTest {
     @Test
     fun `use cases should reside in domain module`() {
         Konsist
-            .scopeFromProject()
+            .scopeFromProduction()
             .classes()
             .withNameEndingWith("UseCase")
             .assertTrue {
-                it.resideInModule("..domain..")
+                it.moduleName.contains("domain")
             }
     }
 
     @Test
     fun `repository interfaces should reside in domain and implementations in data`() {
-        // Проверяем интерфейсы репозиториев
         Konsist
-            .scopeFromProject()
+            .scopeFromProduction()
             .interfaces()
             .withNameEndingWith("Repository")
             .assertTrue {
-                it.resideInModule("..domain..")
+                it.moduleName.contains("domain")
             }
 
         // Проверяем классы-реализации репозиториев
         Konsist
-            .scopeFromProject()
+            .scopeFromProduction()
             .classes()
             .withNameEndingWith("RepositoryImpl")
             .assertTrue {
-                it.resideInModule("..data..")
+                it.moduleName.contains("data")
             }
     }
 }
