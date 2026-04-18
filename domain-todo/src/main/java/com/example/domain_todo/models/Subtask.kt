@@ -1,4 +1,5 @@
-package com.example.todo2.domain.models
+package com.example.domain_todo.models
+
 data class Subtask(
     val text: String,
     val completed: Boolean = false

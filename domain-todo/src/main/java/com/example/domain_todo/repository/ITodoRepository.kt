@@ -1,6 +1,6 @@
-package com.example.todo2.domain.repositories
+package com.example.domain_todo.repository
 
-import com.example.todo2.domain.models.Task
+import com.example.domain_todo.models.Task
 
 interface ITodoRepository {
     suspend fun getTasks(): Result<List<Task>>

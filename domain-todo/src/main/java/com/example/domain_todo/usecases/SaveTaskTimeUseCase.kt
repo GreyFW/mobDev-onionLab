@@ -1,7 +1,7 @@
-package com.example.todo2.domain.usecases.todo
+package com.example.domain_todo.usecases
 
-import com.example.todo2.domain.models.Task
-import com.example.todo2.domain.repositories.ITodoRepository
+import com.example.domain_todo.models.Task
+import com.example.domain_todo.repository.ITodoRepository
 
 class SaveTaskTimeUseCase(
     private val todoRepository: ITodoRepository

@@ -1,10 +1,12 @@
-package com.example.todo2.presentation
+package com.example.presentation_todo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.todo2.domain.models.Task
-import com.example.todo2.domain.usecases.ToggleTaskCompleteUseCase
-import com.example.todo2.domain.usecases.todo.*
+import com.example.domain_todo.models.Task
+import com.example.domain_todo.usecases.DeleteTaskUseCase
+import com.example.domain_todo.usecases.GetTasksUseCase
+import com.example.domain_todo.usecases.SaveTaskTimeUseCase
+import com.example.domain_todo.usecases.ToggleTaskCompleteUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

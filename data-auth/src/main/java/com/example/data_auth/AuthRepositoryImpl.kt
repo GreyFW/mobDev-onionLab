@@ -1,7 +1,7 @@
-package com.example.todo2.data.repositories
+package com.example.data_auth
 
-import com.example.todo2.domain.models.User
-import com.example.todo2.domain.repositories.IAuthRepository
+import com.example.domain_auth.User
+import com.example.domain_auth.IAuthRepository
 
 interface UserDao {
     suspend fun getUserByEmail(email: String): UserEntity?

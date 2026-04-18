@@ -1,7 +1,4 @@
-package com.example.todo2.domain.usecases
-
-import com.example.todo2.domain.models.User
-import com.example.todo2.domain.repositories.IAuthRepository
+package com.example.domain_auth
 
 class RegisterUseCase(
     private val authRepository: IAuthRepository

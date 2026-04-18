@@ -1,7 +1,7 @@
-package com.example.todo2.domain.usecases
+package com.example.domain_todo.usecases
 
-import com.example.todo2.domain.models.Task
-import com.example.todo2.domain.repositories.ITodoRepository
+import com.example.domain_todo.models.Task
+import com.example.domain_todo.repository.ITodoRepository
 
 class ToggleTaskCompleteUseCase(
     private val todoRepository: ITodoRepository

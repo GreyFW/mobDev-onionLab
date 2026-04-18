@@ -1,4 +1,4 @@
-package com.example.todo2.domain.models
+package com.example.domain_auth
 
 data class User(
     val id: String,

@@ -34,7 +34,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":domain-todo")) // или :domain-auth
+    implementation(project(":domain-todo"))
     implementation(project(":core"))
     implementation(project(":core:navigation"))
     implementation(libs.androidx.room.runtime)
