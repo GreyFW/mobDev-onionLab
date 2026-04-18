@@ -1,4 +1,4 @@
-package com.example.todo2.domain.usecases
+package com.example.todo2.domain.usecases.todo
 
 import com.example.todo2.domain.models.Task
 import com.example.todo2.domain.repositories.ITodoRepository
