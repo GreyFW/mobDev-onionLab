@@ -11,6 +11,12 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/data-auth" />
+            <option value="$PROJECT_DIR$/data-todo" />
+            <option value="$PROJECT_DIR$/domain-auth" />
+            <option value="$PROJECT_DIR$/domain-todo" />
+            <option value="$PROJECT_DIR$/presentation-auth" />
+            <option value="$PROJECT_DIR$/presentation-todo" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -22,3 +22,9 @@ dependencyResolutionManagement {
 rootProject.name = "To Do 2"
 include(":app")
 include(":core")
+include(":domain-auth")
+include(":data-auth")
+include(":presentation-auth")
+include(":data-todo")
+include(":presentation-todo")
+include(":domain-todo")
