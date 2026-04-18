@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "To Do 2"
 include(":app")
- 
+include(":core")
