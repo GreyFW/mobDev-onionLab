@@ -16,7 +16,10 @@ coroutines = "1.8.0"
 hilt = "2.51"
 room = "2.6.1"
 
+konsist = "0.15.1"
+
 [libraries]
+konsist = { group = "com.lemonappdev", name = "konsist", version.ref = "konsist" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
