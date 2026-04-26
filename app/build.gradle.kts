@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -28,7 +29,7 @@ android {
         buildConfigField(
             "String",
             "APPMETRICA_API_KEY",
-            "\"${localProperties["appmetrica.api.key"]}\""
+            "\"${localProperties["appmetrica_api_key"]}\""
         )
     }
 
