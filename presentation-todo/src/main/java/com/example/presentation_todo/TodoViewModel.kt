@@ -2,22 +2,27 @@ package com.example.presentation_todo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.core.analytics.AnalyticsService
 import com.example.domain_todo.models.Task
 import com.example.domain_todo.usecases.DeleteTaskUseCase
 import com.example.domain_todo.usecases.GetTasksUseCase
 import com.example.domain_todo.usecases.SaveTaskTimeUseCase
 import com.example.domain_todo.usecases.ToggleTaskCompleteUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-class TodoViewModel(
+@HiltViewModel
+class TodoViewModel @Inject constructor(
     private val getTasksUseCase: GetTasksUseCase,
     private val toggleTaskCompleteUseCase: ToggleTaskCompleteUseCase,
     private val saveTaskTimeUseCase: SaveTaskTimeUseCase,
-    private val deleteTaskUseCase: DeleteTaskUseCase
+    private val deleteTaskUseCase: DeleteTaskUseCase,
+    private val analytics: AnalyticsService
 ) : ViewModel() {
 
     private val _allTasks = MutableStateFlow<List<Task>>(emptyList())
@@ -28,6 +33,13 @@ class TodoViewModel(
 
     private val _selectedTask = MutableStateFlow<Task?>(null)
     val selectedTask: StateFlow<Task?> = _selectedTask.asStateFlow()
+
+    init {
+        analytics.trackEvent(
+            name = "screen_viewed",
+            params = mapOf("screen_name" to "todo_main_screen")
+        )
+    }
 
     fun loadTasks() {
         viewModelScope.launch {
@@ -40,6 +52,13 @@ class TodoViewModel(
     fun toggleTaskStatus(task: Task) {
         viewModelScope.launch {
             toggleTaskCompleteUseCase(task).onSuccess {
+                analytics.trackEvent(
+                    name = "task_status_toggled",
+                    params = mapOf(
+                        "task_id" to task.id,
+                        "new_status" to !task.completed
+                    )
+                )
                 loadTasks()
             }
         }
