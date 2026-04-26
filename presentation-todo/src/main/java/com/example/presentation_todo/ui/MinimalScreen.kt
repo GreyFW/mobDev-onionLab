@@ -13,11 +13,12 @@ import com.example.presentation_todo.TodoViewModel
 
 @Composable
 fun TodoMinimalScreen(
+    modifier: Modifier = Modifier,
     viewModel: TodoViewModel = hiltViewModel()
 ) {
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
