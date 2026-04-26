@@ -9,7 +9,7 @@ import com.example.domain_todo.usecases.GetTasksUseCase
 import com.example.domain_todo.usecases.SaveTaskTimeUseCase
 import com.example.domain_todo.usecases.ToggleTaskCompleteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jakarta.inject.Inject
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

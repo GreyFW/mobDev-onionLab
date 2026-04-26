@@ -6,6 +6,7 @@ import com.example.domain_todo.models.Subtask
 import androidx.room.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import javax.inject.Inject
 @Entity(tableName = "tasks")
 data class TaskEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
@@ -57,7 +58,7 @@ interface TodoDao {
     suspend fun deleteTaskById(id: Int)
 }
 
-class TodoRepositoryImpl(
+class TodoRepositoryImpl @Inject constructor(
     private val todoDao: TodoDao,
     private val converters: RoomConverters
 ) : ITodoRepository {
