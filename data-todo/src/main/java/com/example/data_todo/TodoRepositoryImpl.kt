@@ -17,7 +17,7 @@ data class TaskEntity(
     val timeSpent: Int
 )
 
-class RoomConverters {
+class RoomConverters @Inject constructor() {
     private val gson = Gson()
 
     @TypeConverter
