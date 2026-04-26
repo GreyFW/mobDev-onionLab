@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import com.example.presentation_auth.ui.AuthScreen
 import com.example.presentation_todo.ui.TodoMinimalScreen
 import com.example.todo2.ui.theme.ToDo2Theme
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,9 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ToDo2Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    TodoMinimalScreen(
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    AuthScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }

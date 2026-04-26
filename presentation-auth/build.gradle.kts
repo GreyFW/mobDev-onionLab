@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -61,4 +63,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     //     implementation("com.yandex.android:authsdk:3.1.0")
     //    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.android)
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 }

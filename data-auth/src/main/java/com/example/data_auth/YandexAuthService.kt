@@ -9,10 +9,11 @@ import com.yandex.authsdk.YandexAuthLoginOptions
 import com.yandex.authsdk.YandexAuthOptions
 import com.yandex.authsdk.YandexAuthResult
 import com.yandex.authsdk.YandexAuthSdk
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class YandexAuthService @Inject constructor(
-    private val context: Context,
+    @ApplicationContext private val context: Context,
     private val tokenManager: TokenManager
 ) : AuthService {
 
