@@ -11,6 +11,7 @@ class AppMetricaAnalyticsService @Inject constructor() : AnalyticsService {
         } else {
             AppMetrica.reportEvent(name, params.mapValues { it.value.toString() })
         }
+        AppMetrica.sendEventsBuffer()
     }
 
     override fun trackError(message: String, error: Throwable?) {

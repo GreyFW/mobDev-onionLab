@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -47,5 +48,11 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
     implementation(libs.gson)
+    //    implementation("com.yandex.android:authsdk:3.1.0")
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation("com.yandex.android:authsdk:3.1.0")
+    implementation("javax.inject:javax.inject:1")
 }
 

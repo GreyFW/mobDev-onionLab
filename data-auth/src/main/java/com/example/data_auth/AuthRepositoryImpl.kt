@@ -1,7 +1,7 @@
 package com.example.data_auth
 
-import com.example.domain_auth.User
 import com.example.domain_auth.IAuthRepository
+import com.example.domain_auth.models.User
 
 interface UserDao {
     suspend fun getUserByEmail(email: String): UserEntity?
@@ -37,7 +37,13 @@ class AuthRepositoryImpl(
                 return Result.failure(Exception("Неверный пароль"))
             }
 
-            val user = User(id = userEntity.id, email = userEntity.email)
+            val userName = userEntity.email.substringBefore("@") // Берем часть email до собачки как имя
+            val user = User(
+                id = userEntity.id,
+                name = userName,
+                email = userEntity.email,
+                avatarUrl = null
+            )
 
             userPreferences.saveCurrentUser(user)
 
@@ -59,7 +65,13 @@ class AuthRepositoryImpl(
 
             userDao.insertUser(newUserEntity)
 
-            val user = User(id = newId, email = email)
+            val userName = email.substringBefore("@")
+            val user = User(
+                id = newId,
+                name = userName,
+                email = email,
+                avatarUrl = null
+            )
 
             userPreferences.saveCurrentUser(user)
 

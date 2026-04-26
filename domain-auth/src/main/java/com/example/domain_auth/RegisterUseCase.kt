@@ -1,6 +1,9 @@
 package com.example.domain_auth
 
-class RegisterUseCase(
+import com.example.domain_auth.models.User
+import javax.inject.Inject
+
+class RegisterUseCase @Inject constructor(
     private val authRepository: IAuthRepository
 ) {
     suspend operator fun invoke(email: String, password: String, confirmPass: String): Result<User> {

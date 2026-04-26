@@ -59,4 +59,6 @@ dependencies {
     implementation(libs.hilt.android)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    //     implementation("com.yandex.android:authsdk:3.1.0")
+    //    implementation("androidx.security:security-crypto:1.1.0-alpha06")
 }

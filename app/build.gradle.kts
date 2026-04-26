@@ -37,6 +37,12 @@ android {
             "APPMETRICA_API_KEY",
             "\"${localProperties["appmetrica_api_key"]}\""
         )
+        buildConfigField(
+            "String",
+            "YANDEX_CLIENT_ID",
+            "\"${localProperties["yandex_client_id"]}\""
+        )
+        manifestPlaceholders["YANDEX_CLIENT_ID"] = localProperties["yandex_client_id"].toString()
     }
 
     buildTypes {
@@ -93,4 +99,7 @@ dependencies {
     testImplementation(libs.junit)
 
     implementation("io.appmetrica.analytics:analytics:8.1.0")
+
+    implementation("com.yandex.android:authsdk:3.1.0")
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
 }
