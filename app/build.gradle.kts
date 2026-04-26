@@ -13,6 +13,12 @@ plugins {
     alias(libs.plugins.hilt)
 }
 
+configurations.all {
+    resolutionStrategy {
+        force("com.squareup:javapoet:1.13.0")
+    }
+}
+
 android {
     namespace = "com.example.todo2"
     compileSdk = 36
@@ -69,6 +75,7 @@ dependencies {
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    ksp("com.squareup:javapoet:1.13.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
