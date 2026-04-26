@@ -84,5 +84,5 @@ dependencies {
     testImplementation(libs.konsist)
     testImplementation(libs.junit)
 
-    implementation("io.appmetrica.analytics:analytics:7.+")
+    implementation("io.appmetrica.analytics:analytics:8.1.0")
 }
