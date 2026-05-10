@@ -9,13 +9,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.example.presentation_auth.ui.AuthScreen
-import com.example.presentation_todo.ui.TodoMinimalScreen
 import com.example.todo2.ui.theme.ToDo2Theme
+import com.yandex.mapkit.MapKitFactory
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        MapKitFactory.setApiKey("d2d46cea-def8-4ae6-a5c7-adae8e953f43")
+        MapKitFactory.initialize(this)
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {

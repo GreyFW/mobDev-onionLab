@@ -79,9 +79,13 @@ dependencies {
     implementation(project(":data-todo"))
     implementation(project(":presentation-todo"))
 
+    implementation(project(":presentation-about"))
+
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     ksp("com.squareup:javapoet:1.13.0")
+
+    implementation("com.yandex.android:maps.mobile:4.4.0-lite")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
