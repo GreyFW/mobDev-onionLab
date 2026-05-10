@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/data-todo" />
             <option value="$PROJECT_DIR$/domain-auth" />
             <option value="$PROJECT_DIR$/domain-todo" />
+            <option value="$PROJECT_DIR$/presentation-about" />
             <option value="$PROJECT_DIR$/presentation-auth" />
             <option value="$PROJECT_DIR$/presentation-todo" />
           </set>
