@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.*
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -32,8 +31,8 @@ fun AboutScreen(
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    // Рандомные координаты
-    val officePoint = Point(55.753605, 37.621094)
+    // КемГУ))))
+    val officePoint = Point(55.351912, 86.091051)
 
     val mapView = remember { MapView(context) }
 
@@ -58,68 +57,63 @@ fun AboutScreen(
         }
     }
 
-    Scaffold(
-        topBar = { TopAppBar(title = { Text("О нас") }) }
-    ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .padding(16.dp)
-        ) {
-            Text("ООО «Чёто разрабатываем (вроде)»", fontSize = 24.sp, fontWeight = FontWeight.Bold)
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "Надеемся Вам понравился наш To-Do list, но если хотите с нами сотрудничать, лучше закажите Web-приложение <3",
-                style = MaterialTheme.typography.bodyLarge
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Text("ООО «Чёто разрабатываем (вроде)»", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "Надеемся Вам понравился наш To-Do list, но если хотите с нами сотрудничать, лучше закажите Web-приложение <3",
+            style = MaterialTheme.typography.bodyLarge
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Text("Адрес: г. Кемерово, ул. Красная, д. 6", fontWeight = FontWeight.Medium)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Яндекс Карта
+        Card(modifier = Modifier.fillMaxWidth().weight(1f)) {
+            AndroidView(
+                factory = {
+                    mapView.apply {
+                        mapWindow.map.move(CameraPosition(officePoint, 15f, 0f, 0f))
+
+                        val imageProvider = ImageProvider.fromResource(context, R.drawable.ic_location_pin)
+                        mapWindow.map.mapObjects.addPlacemark(officePoint, imageProvider)
+                    }
+                },
+                modifier = Modifier.fillMaxSize()
             )
-            Spacer(modifier = Modifier.height(16.dp))
-            Text("Адрес: г. Кемерово, ул. Улица, д. 42", fontWeight = FontWeight.Medium)
+        }
 
-            Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-            // Яндекс Карта
-            Card(modifier = Modifier.fillMaxWidth().weight(1f)) {
-                AndroidView(
-                    factory = {
-                        mapView.apply {
-                            mapWindow.map.move(CameraPosition(officePoint, 15f, 0f, 0f))
-
-                            val imageProvider = ImageProvider.fromResource(context, R.drawable.ic_location_pin)
-                            mapWindow.map.mapObjects.addPlacemark(officePoint, imageProvider)
-                        }
-                    },
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Кнопка построения маршрута
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = {
+        // Кнопка построения маршрута
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {
+                try {
+                    // Пытаемся открыть маршрут в приложении Яндекс Карт
+                    val yandexUri = Uri.parse("yandexmaps://build_route_on_map?lat_to=${officePoint.latitude}&lon_to=${officePoint.longitude}")
+                    val intent = Intent(Intent.ACTION_VIEW, yandexUri)
+                    context.startActivity(intent)
+                } catch (e: Exception) {
+                    // Если Яндекс Карты не установлены, открываем любой системный навигатор (Google, 2GIS и т.д.)
                     try {
-                        // Пытаемся открыть маршрут в приложении Яндекс Карт
-                        val yandexUri = Uri.parse("yandexmaps://build_route_on_map?lat_to=${officePoint.latitude}&lon_to=${officePoint.longitude}")
-                        val intent = Intent(Intent.ACTION_VIEW, yandexUri)
+                        val genericUri = Uri.parse("geo:${officePoint.latitude},${officePoint.longitude}?q=${officePoint.latitude},${officePoint.longitude}(Наш+офис)")
+                        val intent = Intent(Intent.ACTION_VIEW, genericUri)
                         context.startActivity(intent)
-                    } catch (e: Exception) {
-                        // Если Яндекс Карты не установлены, открываем любой системный навигатор (Google, 2GIS и т.д.)
-                        try {
-                            val genericUri = Uri.parse("geo:${officePoint.latitude},${officePoint.longitude}?q=${officePoint.latitude},${officePoint.longitude}(Наш+офис)")
-                            val intent = Intent(Intent.ACTION_VIEW, genericUri)
-                            context.startActivity(intent)
-                        } catch (ex: Exception) {
-                            Toast.makeText(context, "Нет приложения для просмотра карт :(", Toast.LENGTH_SHORT).show()
-                        }
+                    } catch (ex: Exception) {
+                        Toast.makeText(context, "Нет приложения для просмотра карт :(", Toast.LENGTH_SHORT).show()
                     }
                 }
-            ) {
-                Icon(Icons.Default.LocationOn, contentDescription = "Route")
-                Spacer(modifier = Modifier.width(8.dp))
-                Text("Построить маршрут до офиса")
             }
+        ) {
+            Icon(Icons.Default.LocationOn, contentDescription = "Route")
+            Spacer(modifier = Modifier.width(8.dp))
+            Text("Построить маршрут")
         }
     }
 }

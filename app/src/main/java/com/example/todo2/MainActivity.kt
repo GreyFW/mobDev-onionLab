@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.example.presentation_auth.ui.AuthScreen
+import com.example.presentation_about.AboutScreen
 import com.example.todo2.ui.theme.ToDo2Theme
 import com.yandex.mapkit.MapKitFactory
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Инициализация карт
         MapKitFactory.setApiKey("d2d46cea-def8-4ae6-a5c7-adae8e953f43")
         MapKitFactory.initialize(this)
 
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ToDo2Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    AuthScreen(modifier = Modifier.padding(innerPadding))
+                    AboutScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
