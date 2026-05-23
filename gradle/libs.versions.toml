@@ -19,7 +19,8 @@ room = "2.6.1"
 konsist = "0.15.1"
 material3 = "1.4.0"
 
-firbaseBom = "33.7.0"
+firbaseCrashlytics = "3.0.1"
+firebaseBom = "34.13.0"
 googleServices = "4.4.2"
 
 [libraries]
@@ -54,10 +55,6 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", v
 androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
-firebase-messaging = { module = "com.google.firebase:firebase-messaging" }
-firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
-firebase-config = { module = "com.google.firebase:firebase-config" }
-firebase-firestore = { module = "com.google.firebase:firebase-firestore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -68,4 +65,5 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version = "2.0.21-1.0.28" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 google-serivces = { id = "com.google.gms.google-services", version.ref = "googleServices" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firbaseCrashlytics" }
 

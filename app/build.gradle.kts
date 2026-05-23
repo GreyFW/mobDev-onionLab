@@ -11,7 +11,6 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-    id("com.google.gms.google-services")
 }
 
 configurations.all {
@@ -108,7 +107,7 @@ dependencies {
     implementation("com.yandex.android:authsdk:3.1.0")
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
 
-    implementation(platform("com.google.firebase:firebase-bom:34.13.0"))
+    implementation(platform(libs.firebase.bom))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-messaging")
     implementation("com.google.firebase:firebase-config")
