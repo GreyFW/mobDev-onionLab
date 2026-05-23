@@ -22,7 +22,7 @@ class TodoViewModel @Inject constructor(
     private val toggleTaskCompleteUseCase: ToggleTaskCompleteUseCase,
     private val saveTaskTimeUseCase: SaveTaskTimeUseCase,
     private val deleteTaskUseCase: DeleteTaskUseCase,
-    private val analytics: AnalyticsService
+    private val analyticsService: AnalyticsService,
 ) : ViewModel() {
 
     private val _allTasks = MutableStateFlow<List<Task>>(emptyList())
@@ -35,7 +35,7 @@ class TodoViewModel @Inject constructor(
     val selectedTask: StateFlow<Task?> = _selectedTask.asStateFlow()
 
     init {
-        analytics.trackEvent(
+        analyticsService.trackEvent(
             name = "screen_viewed",
             params = mapOf("screen_name" to "todo_main_screen")
         )
@@ -52,7 +52,7 @@ class TodoViewModel @Inject constructor(
     fun toggleTaskStatus(task: Task) {
         viewModelScope.launch {
             toggleTaskCompleteUseCase(task).onSuccess {
-                analytics.trackEvent(
+                analyticsService.trackEvent(
                     name = "task_status_toggled",
                     params = mapOf(
                         "task_id" to task.id,
@@ -75,5 +75,20 @@ class TodoViewModel @Inject constructor(
 
     fun selectTask(taskId: Int) {
         _selectedTask.value = _allTasks.value.find { it.id == taskId }
+    }
+
+    fun triggerTestCrash() {
+        analyticsService.log("Generate crash button clicked")
+        throw NullPointerException("Manual crash from control task")
+    }
+
+    fun simulateHandledError() {
+        try {
+            val list = listOf("Task1")
+            val item = list[5] // IndexOutOfBoundsException
+        } catch (e: Exception) {
+            analyticsService.setKey("action", "simulateHandledError")
+            analyticsService.recordNonFatal(e)
+        }
     }
 }

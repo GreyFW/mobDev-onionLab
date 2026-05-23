@@ -1,5 +1,6 @@
-package com.example.core.analytics
+package com.example.todo2.analytics
 
+import com.example.core.analytics.AnalyticsService
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,6 +14,6 @@ abstract class AnalyticsModule {
     @Binds
     @Singleton
     abstract fun bindAnalyticsService(
-        impl: AppMetricaAnalyticsService
+        impl: AnalyticsServiceImpl
     ): AnalyticsService
 }

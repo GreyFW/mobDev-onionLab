@@ -11,4 +11,9 @@ class FakeAnalyticsService : AnalyticsService {
     override fun trackError(message: String, error: Throwable?) {
         println("Tracked error: $message")
     }
+
+    override fun log(message: String) { println("Log: $message") }
+    override fun setKey(key: String, value: String) { println("Key: $key -> $value") }
+    override fun setUserId(userId: String?) { println("UserID: $userId") }
+    override fun recordNonFatal(throwable: Throwable) { println("NonFatal: ${throwable.message}") }
 }

@@ -33,4 +33,12 @@ fun TodoMinimalScreen(
             Text("Переключить статус задачи")
         }
     }
+
+    Button(onClick = { viewModel.triggerTestCrash() }) {
+        Text("Спровоцировать Crash")
+    }
+
+    Button(onClick = { viewModel.simulateHandledError() }) {
+        Text("Отправить Non-Fatal ошибку")
+    }
 }
