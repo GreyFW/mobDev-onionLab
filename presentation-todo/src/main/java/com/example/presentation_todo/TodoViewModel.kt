@@ -43,33 +43,50 @@ class TodoViewModel @Inject constructor(
 
     fun loadTasks() {
         viewModelScope.launch {
-            getTasksUseCase().onSuccess { tasks ->
-                _allTasks.value = tasks
-            }
+            getTasksUseCase()
+                .onSuccess { tasks ->
+                    _allTasks.value = tasks
+                }
+                .onFailure { error ->
+                    analyticsService.setKey("layer", "viewmodel")
+                    analyticsService.setKey("action", "loadTasks")
+                    analyticsService.recordNonFatal(error)
+                }
         }
     }
-
     fun toggleTaskStatus(task: Task) {
         viewModelScope.launch {
-            toggleTaskCompleteUseCase(task).onSuccess {
-                analyticsService.trackEvent(
-                    name = "task_status_toggled",
-                    params = mapOf(
-                        "task_id" to task.id,
-                        "new_status" to !task.completed
+            toggleTaskCompleteUseCase(task)
+                .onSuccess {
+                    analyticsService.trackEvent(
+                        name = "task_status_toggled",
+                        params = mapOf(
+                            "task_id" to task.id,
+                            "new_status" to !task.completed
+                        )
                     )
-                )
-                loadTasks()
-            }
+                    loadTasks()
+                }
+                .onFailure { error ->
+                    analyticsService.setKey("layer", "viewmodel")
+                    analyticsService.setKey("action", "toggleTaskStatus")
+                    analyticsService.recordNonFatal(error)
+                }
         }
     }
 
     fun stopTimerAndSave(additionalSeconds: Int) {
         val currentTask = _selectedTask.value ?: return
         viewModelScope.launch {
-            saveTaskTimeUseCase(currentTask, additionalSeconds).onSuccess {
-                loadTasks()
-            }
+            saveTaskTimeUseCase(currentTask, additionalSeconds)
+                .onSuccess {
+                    loadTasks()
+                }
+                .onFailure { error ->
+                    analyticsService.setKey("layer", "viewmodel")
+                    analyticsService.setKey("action", "stopTimerAndSave")
+                    analyticsService.recordNonFatal(error)
+                }
         }
     }
 
