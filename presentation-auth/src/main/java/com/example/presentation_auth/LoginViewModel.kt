@@ -54,6 +54,10 @@ class LoginViewModel @Inject constructor(
                 _authState.value = AuthState.Authenticated(result.user.name)
             }
             is AuthResult.Error -> {
+                analytics.setKey("layer", "viewmodel")
+                analytics.setKey("action", "login")
+                analytics.recordNonFatal(Exception("Login error: ${result.message}"))
+
                 _authState.value = AuthState.Error(result.message)
             }
             AuthResult.Cancelled -> {

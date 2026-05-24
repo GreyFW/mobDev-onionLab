@@ -7,6 +7,8 @@ import androidx.room.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import javax.inject.Inject
+import com.example.core.analytics.AnalyticsService
+
 @Entity(tableName = "tasks")
 data class TaskEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
@@ -60,7 +62,8 @@ interface TodoDao {
 
 class TodoRepositoryImpl @Inject constructor(
     private val todoDao: TodoDao,
-    private val converters: RoomConverters
+    private val converters: RoomConverters,
+    private val analyticsService: AnalyticsService
 ) : ITodoRepository {
 
     private fun TaskEntity.toDomainModel(): Task {
@@ -91,6 +94,10 @@ class TodoRepositoryImpl @Inject constructor(
             val domainTasks = entities.map { it.toDomainModel() }
             Result.success(domainTasks)
         } catch (e: Exception) {
+            analyticsService.setKey("layer", "data")
+            analyticsService.setKey("action", "getTasks")
+            analyticsService.recordNonFatal(e)
+
             Result.failure(e)
         }
     }
@@ -115,6 +122,10 @@ class TodoRepositoryImpl @Inject constructor(
             )
             Result.success(domainTask)
         } catch (e: Exception) {
+            analyticsService.setKey("layer", "data")
+            analyticsService.setKey("action", "addTask")
+            analyticsService.recordNonFatal(e)
+
             Result.failure(e)
         }
     }
@@ -124,6 +135,10 @@ class TodoRepositoryImpl @Inject constructor(
             todoDao.updateTask(task.toEntityModel())
             Result.success(Unit)
         } catch (e: Exception) {
+            analyticsService.setKey("layer", "data")
+            analyticsService.setKey("action", "updateTask")
+            analyticsService.recordNonFatal(e)
+
             Result.failure(e)
         }
     }
@@ -133,6 +148,10 @@ class TodoRepositoryImpl @Inject constructor(
             todoDao.deleteTaskById(id)
             Result.success(Unit)
         } catch (e: Exception) {
+            analyticsService.setKey("layer", "data")
+            analyticsService.setKey("action", "deleteTask")
+            analyticsService.recordNonFatal(e)
+
             Result.failure(e)
         }
     }

@@ -9,19 +9,20 @@ import com.yandex.authsdk.YandexAuthLoginOptions
 import com.yandex.authsdk.YandexAuthOptions
 import com.yandex.authsdk.YandexAuthResult
 import com.yandex.authsdk.YandexAuthSdk
+import com.example.core.analytics.AnalyticsService
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class YandexAuthService @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val tokenManager: TokenManager
+    private val tokenManager: TokenManager,
+    private val analyticsService: AnalyticsService
 ) : AuthService {
 
     private val sdk = YandexAuthSdk.create(YandexAuthOptions(context))
 
     override fun getLoginIntent(): Intent {
         val loginOptions = YandexAuthLoginOptions()
-
         return sdk.contract.createIntent(context, loginOptions)
     }
 
@@ -38,6 +39,10 @@ class YandexAuthService @Inject constructor(
                 AuthResult.Cancelled
             }
             is YandexAuthResult.Failure -> {
+                analyticsService.setKey("layer", "data_auth")
+                analyticsService.setKey("action", "yandex_auth_failure")
+                analyticsService.recordNonFatal(yandexResult.exception)
+
                 AuthResult.Error(yandexResult.exception.message ?: "Yandex auth failed")
             }
         }

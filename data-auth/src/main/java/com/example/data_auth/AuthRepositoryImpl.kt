@@ -2,6 +2,7 @@ package com.example.data_auth
 
 import com.example.domain_auth.IAuthRepository
 import com.example.domain_auth.models.User
+import com.example.core.analytics.AnalyticsService
 
 interface UserDao {
     suspend fun getUserByEmail(email: String): UserEntity?
@@ -22,7 +23,8 @@ data class UserEntity(
 
 class AuthRepositoryImpl(
     private val userDao: UserDao,
-    private val userPreferences: UserPreferences
+    private val userPreferences: UserPreferences,
+    private val analyticsService: AnalyticsService
 ) : IAuthRepository {
 
     override suspend fun login(email: String, password: String): Result<User> {
@@ -37,7 +39,7 @@ class AuthRepositoryImpl(
                 return Result.failure(Exception("Неверный пароль"))
             }
 
-            val userName = userEntity.email.substringBefore("@") // Берем часть email до собачки как имя
+            val userName = userEntity.email.substringBefore("@")
             val user = User(
                 id = userEntity.id,
                 name = userName,
@@ -46,9 +48,12 @@ class AuthRepositoryImpl(
             )
 
             userPreferences.saveCurrentUser(user)
-
             Result.success(user)
         } catch (e: Exception) {
+            analyticsService.setKey("layer", "data_auth")
+            analyticsService.setKey("action", "login")
+            analyticsService.recordNonFatal(e)
+
             Result.failure(e)
         }
     }
@@ -74,9 +79,12 @@ class AuthRepositoryImpl(
             )
 
             userPreferences.saveCurrentUser(user)
-
             Result.success(user)
         } catch (e: Exception) {
+            analyticsService.setKey("layer", "data_auth")
+            analyticsService.setKey("action", "register")
+            analyticsService.recordNonFatal(e)
+
             Result.failure(e)
         }
     }
@@ -86,6 +94,10 @@ class AuthRepositoryImpl(
             userPreferences.clearCurrentUser()
             Result.success(Unit)
         } catch (e: Exception) {
+            analyticsService.setKey("layer", "data_auth")
+            analyticsService.setKey("action", "logout")
+            analyticsService.recordNonFatal(e)
+
             Result.failure(e)
         }
     }
